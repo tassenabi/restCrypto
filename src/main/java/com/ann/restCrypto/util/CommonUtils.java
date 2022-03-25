@@ -4,7 +4,9 @@ import com.ann.restCrypto.persistence.model.ErrorRecord;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 
+import java.time.LocalDate;
 import java.util.function.Consumer;
+
 
 public final class CommonUtils {
 
@@ -32,5 +34,15 @@ public final class CommonUtils {
             return 0D;
         }
         return number;
+    }
+
+    public static LocalDate convertStringToDate(String fromDate) {
+
+        CharSequence f = fromDate;
+
+        LocalDate date = LocalDate.parse(f);
+
+        return date;
+
     }
 }
