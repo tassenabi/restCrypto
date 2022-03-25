@@ -17,13 +17,11 @@ public class FrontendService {
     public List<EtherumBo> getEthereumByDateIntervall(LocalDate fromDate, LocalDate untilDate) {
 
         return ethereumRepository.findAllByDateStampBetween(fromDate, untilDate);
-
     }
 
     public List<EtherumBo> getEthereumByDate(LocalDate date){
 
         return ethereumRepository.findAllByDateStamp(date);
-
     }
 
     public List<EtherumBo> getAllEthereum(){
