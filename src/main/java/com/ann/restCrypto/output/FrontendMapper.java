@@ -1,7 +1,7 @@
 package com.ann.restCrypto.output;
 
 import com.ann.restCrypto.output.dtos.*;
-import com.ann.restCrypto.persistence.model.EtherumBo;
+import com.ann.restCrypto.persistence.model.EthereumData;
 
 public final class FrontendMapper {
 
@@ -9,34 +9,19 @@ public final class FrontendMapper {
 
     }
 
-    public static EthereumDto toEthereumDto(EtherumBo etherumBo){
+    public static EthereumDto toEthereumDto(EthereumData etherumBo){
 
-        MarketCapDto marketCapDto = getMarketCapDto(etherumBo);
-        RichListDto richListDto = getRichListDto(etherumBo);
-        TransactionDto transactionDto = getTransactionDto(etherumBo);
-        Volume24HoursDto volume24HoursDto = getVolume24HoursDto(etherumBo);
+        BitcoinDto bitcoinDto = getBitcoinDto(etherumBo);
 
-        return new EthereumDto(marketCapDto, richListDto,
-                transactionDto, volume24HoursDto);
+        return new EthereumDto(etherumBo.getSequentialNumber(), etherumBo.getOwnWalletValueUSD(), etherumBo.getPriceUSD(), etherumBo.getCoinsInCirculation(),
+                etherumBo.getMarketCapUSD()
+                , etherumBo.getAmountOfTransactionsUSD(), etherumBo.getVolumen24hUSD(),
+                etherumBo.getCountProjects(), etherumBo.getBuy() , etherumBo.getSell(), bitcoinDto, etherumBo.getDateStamp());
     }
 
-    private static Volume24HoursDto getVolume24HoursDto(EtherumBo etherumBo) {
-        var volume24HoursBo = etherumBo.getVolumenTwentyFourHoursBo();
-        return new Volume24HoursDto(volume24HoursBo.getVolume24HoursEUR());
-    }
+    private static BitcoinDto getBitcoinDto(EthereumData ethereumData) {
 
-    private static TransactionDto getTransactionDto(EtherumBo etherumBo) {
-        var transactionBo = etherumBo.getTransactionBo();
-        return new TransactionDto(transactionBo.getTransactionVolumeEUR(), transactionBo.getTransactionVolumeAmount());
-    }
-
-    private static RichListDto getRichListDto(EtherumBo etherumBo) {
-        var richListBo = etherumBo.getRichListBo();
-        return new RichListDto(richListBo.getDateStamp());
-    }
-
-    private static MarketCapDto getMarketCapDto(EtherumBo etherumBo) {
-        var marketCapBo = etherumBo.getMarketCapBo();
-        return new MarketCapDto(marketCapBo.getMarketCapValue());
+        var bitcoinDto = ethereumData.getBitcoinData();
+        return new BitcoinDto(bitcoinDto.getPriceUSD(), bitcoinDto.getAmountOfCoins(), bitcoinDto.getMarketCapUSD());
     }
 }

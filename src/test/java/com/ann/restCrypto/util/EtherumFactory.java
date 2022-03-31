@@ -6,10 +6,14 @@ import com.ann.restCrypto.persistence.model.*;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EtherumFactory {
+
+    public static final LocalDate DATE_ONE = LocalDate.of(2022, Month.JANUARY, 12);
+    public static final LocalDate DATE_TWO = LocalDate.of(2022, Month.JANUARY, 11);
 
     public static EthereumDto createEthereumDto(){
 
@@ -17,38 +21,36 @@ public class EtherumFactory {
 
     }
 
-    public static EtherumBo createEthereumBo(ObjectId objectId) {
+    public static EthereumData createEthereumBo(ObjectId objectId) {
 
-        EtherumBo etherumBo = new EtherumBo();
-        etherumBo.setId(objectId);
+        EthereumData ethereumData = new EthereumData();
 
-        MarketCapBo marketCapBo = new MarketCapBo();
-        marketCapBo.setMarketCapValue(999999d);
+        ethereumData.setId(objectId);
+        ethereumData.setSequentialNumber(1);
+        ethereumData.setOwnWalletValueUSD(200);
+        ethereumData.setPriceUSD(1000);
+        ethereumData.setCoinsInCirculation(25);
+        ethereumData.setMarketCapUSD(25000);
+        ethereumData.setAmountOfTransactionsUSD(200);
+        ethereumData.setVolumen24hUSD(200);
+        ethereumData.setCountProjects(20);
+        ethereumData.setBuy(200);
+        ethereumData.setSell(100);
+        BitcoinData bitcoinData = new BitcoinData(100, 100,100);
+        ethereumData.setBitcoinData(bitcoinData);
+        ethereumData.setDateStamp(LocalDate.now());
 
-        RichListBo richListBo = new RichListBo();
-        richListBo.setDateStamp(LocalDate.now());
-
-        TransactionBo transactionBo= new TransactionBo();
-        transactionBo.setTransactionVolumeEUR(500d);
-        transactionBo.setTransactionVolumeAmount(10);
-
-        Volume24HoursBo volume24HoursBo = new Volume24HoursBo();
-        volume24HoursBo.setVolume24HoursEUR(300d);
-
-        etherumBo.setMarketCapBo(marketCapBo);
-        etherumBo.setRichListBo(richListBo);
-        etherumBo.setTransactionBo(transactionBo);
-        etherumBo.setVolumenTwentyFourHoursBo(volume24HoursBo);
-
-        return etherumBo;
+        return ethereumData;
 
     }
 
-    public static List<EtherumBo> createTwoEthereumBos() {
+    public static List<EthereumData> createTwoEthereumBos() {
 
-        List<EtherumBo> etherumBos = new ArrayList<>();
-        EtherumBo etherumBoOne = EtherumFactory.createEthereumBo(new ObjectId());
-        EtherumBo etherumBoTwo = EtherumFactory.createEthereumBo(new ObjectId());
+        List<EthereumData> etherumBos = new ArrayList<>();
+        EthereumData etherumBoOne = EtherumFactory.createEthereumBo(new ObjectId());
+        EthereumData etherumBoTwo = EtherumFactory.createEthereumBo(new ObjectId());
+        etherumBoOne.setDateStamp(DATE_ONE);
+        etherumBoTwo.setDateStamp(DATE_TWO);
         etherumBos.add(etherumBoOne);
         etherumBos.add(etherumBoTwo);
 

@@ -1,4 +1,4 @@
-package com.ann.restCrypto.input.clients;
+package com.ann.restCrypto.configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -7,9 +7,14 @@ import org.springframework.context.annotation.Configuration;
 public class CredConfigs {
 
     @Value("${coinmarket.apikey}")
-    private String apiKey;
+    private String apiKeyCoinmarket;
 
-    public String getApiKey(){
-        return apiKey;
+    @Value("${cryptoapis.apikey}")
+    private String apiKeyCryptoapis;
+
+    public String getApiKeyCoinmarket(){
+        return apiKeyCoinmarket;
     }
+
+    public String getApiKeyCryptoapis() { return apiKeyCryptoapis; }
 }

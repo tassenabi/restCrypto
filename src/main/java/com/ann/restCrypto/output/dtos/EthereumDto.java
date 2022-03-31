@@ -1,5 +1,17 @@
 package com.ann.restCrypto.output.dtos;
 
-public record EthereumDto(MarketCapDto marketCapDto, RichListDto richListDto,
-                          TransactionDto transactionDto, Volume24HoursDto volume24HoursDto) {
+import java.time.LocalDate;
+
+public record EthereumDto(Integer sequentialNumber,
+        Integer ownWalletValueUSD,
+        Integer pricePerEtherUSD,
+        Integer coinsInCirculation,
+        Integer marketCapUSD,
+        Integer amountOfTransactionsUSD,
+        Integer volumen24hUSD,
+        Integer countProjects,
+        Integer buy,
+        Integer sell,
+        BitcoinDto bitcoinData,
+        LocalDate dateStamp) {
 }

@@ -15,3 +15,10 @@ brew services start mongodb-community@5.0
 brew services stop mongodb-community@5.0 
 brew services list
 
+Test-DB anlegen und User anlegen
+use eth_test
+db.createUser(
+{ user: "test",
+pwd:  "test",
+roles: [ { role: "readWrite", db: "eth_test" } ]})
+

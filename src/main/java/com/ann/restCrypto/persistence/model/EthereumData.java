@@ -16,13 +16,22 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Document
-public class EtherumBo implements Serializable {
+public class EthereumData implements Serializable {
 
     @Id
     private ObjectId id;
-    private MarketCapBo marketCapBo;
-    private RichListBo richListBo;
-    private TransactionBo transactionBo;
-    private Volume24HoursBo volumenTwentyFourHoursBo;
+    private Integer sequentialNumber;
+    private Integer ownWalletValueUSD;
+    private Integer priceUSD;
+    private Integer CoinsInCirculation;
+    private Integer marketCapUSD;
+    private Integer amountOfTransactionsUSD;
+    private Integer volumen24hUSD;
+    private Integer countProjects;
+    private Integer buy;
+    private Integer sell;
+    private BitcoinData bitcoinData;
     private LocalDate dateStamp;
 }
+
+

@@ -1,9 +1,8 @@
 package com.ann.restCrypto.services;
 
-import com.ann.restCrypto.persistence.model.EtherumBo;
+import com.ann.restCrypto.persistence.model.EthereumData;
 import com.ann.restCrypto.persistence.repositories.EthereumRepository;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,25 +15,23 @@ public class FrontendService {
 
     private final EthereumRepository ethereumRepository;
 
-    public List<EtherumBo> getEthereumByDateIntervall(LocalDate fromDate, LocalDate untilDate) {
+    public List<EthereumData> getEthereumByDateAfter(LocalDate date){
 
-        return ethereumRepository.findAllByDateStampBetween(fromDate, untilDate);
+        return ethereumRepository.findAllByDateStampIsAfter(date);
     }
 
-    public List<EtherumBo> getEthereumByDate(LocalDate date){
+    public List<EthereumData> getAllEthereumAndReplaceAmountOfEtherFromNow(Integer amountOfEther){
 
-        return ethereumRepository.findAllByDateStamp(date);
-    }
+        List<EthereumData> allEthereum = ethereumRepository.findAll();
 
-    public List<EtherumBo> getAllEthereum(){
+        Integer highestSequentialNumber = allEthereum.stream().
+                mapToInt(EthereumData::getSequentialNumber)
+                .max().orElseThrow(NoSuchElementException::new);
 
-        return ethereumRepository.findAll();
-    }
+        allEthereum.stream()
+                .filter(x -> x.getSequentialNumber().equals(highestSequentialNumber))
+                .forEach(y -> y.setOwnWalletValueUSD(amountOfEther));
 
-    public EtherumBo getEtherumBy(ObjectId objectId){
-
-        var ethereumBo = ethereumRepository.findBy(objectId);
-
-        return ethereumBo.orElseThrow(() -> {throw new NoSuchElementException();});
+        return allEthereum;
     }
 }
