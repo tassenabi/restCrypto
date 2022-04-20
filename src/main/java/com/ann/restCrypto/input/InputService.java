@@ -18,15 +18,14 @@ public class InputService {
     private final EthereumRepository ethereumRepository;
 
     @Autowired
-    private final RestClientDatasaver restClientDatasaver;
+    private final RestClientService restClientService;
 
-    //@Scheduled(cron = "0 15 10 16 * ?") -> executed at 10:15 AM on the 16th day of every month
-    @Scheduled(cron = "* * */1 * * ?")
+    @Scheduled(cron = "0 1 1 * * ?")
     public void saveEthereumEveryDay(){
 
         Integer newSequentialNumber = this.getHighestSequentialNumberInDatabase() +1;
 
-        String response = restClientDatasaver.getRestcall();
+        String response = restClientService.getRestcall();
         EthereumData ethereumData = RestClientMapper.toEthereumData(newSequentialNumber, response);
 
         ethereumRepository.save(ethereumData);

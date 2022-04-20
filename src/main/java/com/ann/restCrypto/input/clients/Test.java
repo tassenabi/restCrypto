@@ -12,10 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -32,19 +29,13 @@ public class Test {
     //CoinGecko schauen
 
     /** Alternativen schaen
-     * Blockchain wallet
-     * Coinsflare
-     * Coincodex
-     * ViewBase
-     * CryptoCompare
-     * Blockfolio
-     * Wallmine
-     * Coincheckup
-     * Cesium
+     * api.Blockchain.com
+     * Coincodex n--> coincodex.com/page/api
      * Cryptonaut
      */
 
-    private static String apiKey = "80d14a4d-c32f-4070-8cb8-9d55dd7028c9";
+    @Value("${coinmarket.apikey}")
+    private static String apiKey;// = "80d14a4d-c32f-4070-8cb8-9d55dd7028c9";
 
     public static void main(String[] args) {
         String uri = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
@@ -66,6 +57,7 @@ public class Test {
     public static String makeAPICall(String uri, List<NameValuePair> parameters)
             throws URISyntaxException, IOException {
         String response_content = "";
+
 
         URIBuilder query = new URIBuilder(uri);
         query.addParameters(parameters);
